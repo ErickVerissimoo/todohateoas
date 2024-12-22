@@ -1,5 +1,7 @@
 package com.todohateoas.todohateoas.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,6 +16,7 @@ public class User {
 private Integer id;
 private String email;
 private String password;
+@JsonInclude(content = JsonInclude.Include.NON_NULL)
 private Boolean enabled;
 
 }
