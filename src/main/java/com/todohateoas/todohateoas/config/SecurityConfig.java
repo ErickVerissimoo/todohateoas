@@ -21,11 +21,15 @@ public class SecurityConfig {
   
     private final CustomUserDetailsService service;
     @Bean
-    public SecurityFilterChain filter(HttpSecurity http) throws Exception{
-        http.authorizeHttpRequests().requestMatchers("/public/**", "/public/cadastro").permitAll().anyRequest().authenticated().and().httpBasic(withDefaults()).csrf().disable();
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(authorize -> 
+                authorize
+                    .requestMatchers("/public/**").permitAll()
+                    .anyRequest().authenticated()
+        )
+        .httpBasic(withDefaults()).csrf(c -> c.disable());
 
         return http.build();
-    
     }
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {

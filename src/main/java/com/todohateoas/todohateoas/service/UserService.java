@@ -1,8 +1,11 @@
 package com.todohateoas.todohateoas.service;
 
+import java.util.List;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.todohateoas.todohateoas.model.Task;
 import com.todohateoas.todohateoas.model.User;
 import com.todohateoas.todohateoas.repository.UserRepository;
 
@@ -21,5 +24,16 @@ public void cadastro(User user) {
     }
     user.setPassword(encoder.encode(user.getPassword()));
     repository.saveAndFlush(user);
+}
+public void addTask(String email, Task task){
+User user = repository.findByEmail(email);
+if(user == null){
+throw new EntityNotFoundException();
+}
+user.getTasks().add(task);
+repository.saveAndFlush(user);
+}
+public List<User> getAllUsers() {
+    return repository.findAll();
 }
 }
