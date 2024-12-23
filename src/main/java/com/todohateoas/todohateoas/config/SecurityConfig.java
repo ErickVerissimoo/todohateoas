@@ -1,36 +1,42 @@
 package com.todohateoas.todohateoas.config;
 
-import javax.sql.DataSource;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import static org.springframework.security.config.Customizer.withDefaults;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import com.todohateoas.todohateoas.service.CustomUserDetailsService;
+
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
-    @Autowired
-    private DataSource dataSource;
-
+  
+    private final CustomUserDetailsService service;
     @Bean
     public SecurityFilterChain filter(HttpSecurity http) throws Exception{
-        http.csrf(auth -> auth.disable()).authorizeHttpRequests(auth -> auth.requestMatchers("/public/**").permitAll().anyRequest().authenticated()).httpBasic(withDefaults());
+        http.authorizeHttpRequests().requestMatchers("/public/**", "/public/cadastro").permitAll().anyRequest().authenticated().and().httpBasic(withDefaults()).csrf().disable();
 
         return http.build();
     
     }
-
     @Bean
-    public JdbcUserDetailsManager manager(){
-        JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
-        manager.setUsersByUsernameQuery("SELECT email, password, enabled from user where email = ?");
-        return manager;
-
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+        AuthenticationManagerBuilder authenticationManagerBuilder = 
+            http.getSharedObject(AuthenticationManagerBuilder.class);
+        authenticationManagerBuilder.userDetailsService(service).passwordEncoder( getEncoder());
+        return authenticationManagerBuilder.build();
     }
+
+  @Bean
+  public PasswordEncoder getEncoder(){
+    return new BCryptPasswordEncoder();
+  }
 }

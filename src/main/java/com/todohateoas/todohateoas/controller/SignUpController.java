@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("/public/auth")
+@RequestMapping("/public")
 @Validated
 @RequiredArgsConstructor
 public class SignUpController {
@@ -32,13 +33,11 @@ public class SignUpController {
     private final UserService service;
 
 @PostMapping("/cadastro")
-public EntityModel<User> signup(@RequestBody @Valid SignUpDTO entity) {
-
-    EntityModel<User> user = EntityModel.of(mapper.map(entity, User.class));
-    service.cadastro(user.getContent());
+public ResponseEntity<User> signup(@RequestBody @Valid SignUpDTO entity) {
+var e = mapper.map(entity, User.class);
+    service.cadastro(e);
     
-    user.add(linkTo(methodOn(AuthController.class).auth(mapper.map(entity, SignInDto.class))).withSelfRel().withType(HttpMethod.POST.name()) );
-    return user;
+    return ResponseEntity.ok().body(e);
 }
 
 }
