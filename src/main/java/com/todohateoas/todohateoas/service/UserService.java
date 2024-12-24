@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.todohateoas.todohateoas.model.Task;
 import com.todohateoas.todohateoas.model.User;
+import com.todohateoas.todohateoas.repository.TaskRepository;
 import com.todohateoas.todohateoas.repository.UserRepository;
 
 import jakarta.persistence.EntityExistsException;
@@ -18,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 private final UserRepository repository;
 private final PasswordEncoder encoder;
+private final TaskRepository taskRepository;
 public void cadastro(User user) {
     if(repository.existsByEmail(user.getEmail())){
         throw new EntityExistsException("Entidade já existe");
@@ -30,9 +32,12 @@ User user = repository.findByEmail(email);
 if(user == null){
 throw new EntityNotFoundException();
 }
+task.setUser(user);
 user.getTasks().add(task);
-repository.saveAndFlush(user);
+repository.save(user);
+
 }
+
 public List<User> getAllUsers() {
     return repository.findAll();
 }

@@ -3,9 +3,11 @@ package com.todohateoas.todohateoas.model;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,7 +24,8 @@ public class User {
 private Integer id;
 private String email;
 private String password;
-@OneToMany(mappedBy = "user", cascade = {CascadeType.ALL}, orphanRemoval = true)
+    @JsonManagedReference
+@OneToMany(mappedBy = "user", fetch = FetchType.EAGER,cascade = {CascadeType.ALL}, orphanRemoval = true)
 private List<Task> tasks;
 
 }

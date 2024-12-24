@@ -9,6 +9,7 @@ import com.todohateoas.todohateoas.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 
 import org.modelmapper.ModelMapper;
@@ -21,16 +22,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/public")
 @Validated
 @RequiredArgsConstructor
-public class SignUpController {
+public class AuthController {
     private final ModelMapper mapper;
     private final UserService service;
 
 @PostMapping("/cadastro")
-public ResponseEntity<User> signup(@RequestBody SignUpDTO entity) {
-var e = mapper.map(entity, User.class);
-    service.cadastro(e);
+public EntityModel<User> signup(@RequestBody SignUpDTO entity) {
+    EntityModel<User> user = EntityModel.of(mapper.map(entity, User.class));
+    service.cadastro(user.getContent());
     
-    return ResponseEntity.ok().body(e);
+    return user;
 }
 
 }

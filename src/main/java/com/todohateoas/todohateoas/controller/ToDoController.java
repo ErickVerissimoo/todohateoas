@@ -27,8 +27,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/api/tasks")
 public class ToDoController {
     
-//   "email":"erick323@gmail.com",
-//   "password":"erick232313"
 
     final private UserService service;
     private final ModelMapper mapper;
