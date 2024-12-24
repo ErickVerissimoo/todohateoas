@@ -8,4 +8,5 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Integer> {
 Task findByTitle(String title);
+boolean existsByTitle(String title);
 }

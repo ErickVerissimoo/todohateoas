@@ -10,7 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.todohateoas.todohateoas.dto.SignUpDTO;
+import com.todohateoas.todohateoas.dto.UserDto;
 import com.todohateoas.todohateoas.dto.TaskDto;
 
 import jakarta.annotation.PostConstruct;
@@ -31,7 +31,7 @@ public class TodohateoasApplicationTests {
 	
 	@BeforeAll
       void contextLoads() throws Exception {
-        SignUpDTO dto = new SignUpDTO();
+        UserDto dto = new UserDto();
         dto.setEmail("erickverissimodasilva144@gmail.com");
         dto.setPassword("erick12345");
 

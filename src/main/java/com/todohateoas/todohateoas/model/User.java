@@ -25,6 +25,7 @@ private Integer id;
 private String email;
 private String password;
     @JsonManagedReference
+    @JsonInclude(JsonInclude.Include.NON_NULL)
 @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,cascade = {CascadeType.ALL}, orphanRemoval = true)
 private List<Task> tasks;
 

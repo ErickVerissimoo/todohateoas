@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class SignUpDTO {
+public class UserDto {
     @Email(message = "Email inválido")
     private String email;
     @Size(min = 8)
