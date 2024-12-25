@@ -1,6 +1,14 @@
 package com.todohateoas.todohateoas.model;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.CurrentTimestamp;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,14 +22,17 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "tarefa")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 private Integer id;
 private String title;
 private String description;
+@CreationTimestamp
+private LocalDateTime time;
+
 @ManyToOne
 @JoinColumn(name = "user_id")
-    @JsonBackReference
 private User user;
 }

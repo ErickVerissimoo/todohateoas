@@ -1,7 +1,6 @@
 package com.todohateoas.todohateoas;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -13,10 +12,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.todohateoas.todohateoas.dto.UserDto;
 import com.todohateoas.todohateoas.dto.TaskDto;
 
-import jakarta.annotation.PostConstruct;
 import jakarta.inject.Inject;
 
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 

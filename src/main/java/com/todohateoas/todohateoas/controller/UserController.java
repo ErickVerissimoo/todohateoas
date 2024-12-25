@@ -4,7 +4,6 @@ import java.security.Principal;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,7 +41,7 @@ return assembler.toModel(user);
 @DeleteMapping
 public UserModel deleteTask(@RequestBody TaskDto dto){
     var task = service.delete(mapper.map(dto, Task.class));
-    return assembler.toModel(user);
+    return null;
 }
 
 @GetMapping("/users")

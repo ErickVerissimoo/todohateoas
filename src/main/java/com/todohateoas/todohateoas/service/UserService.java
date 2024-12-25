@@ -2,6 +2,7 @@ package com.todohateoas.todohateoas.service;
 
 import java.util.List;
 
+import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserService {
+ 
+    private final JdbcClient client;
 private final UserRepository repository;
 private final PasswordEncoder encoder;
 private final TaskRepository taskRepository;
@@ -42,10 +45,13 @@ repository.save(user);
 return user;
 }
 
-public Task delete(Task task) {
+public User delete(Task task) {
+
+    var one = client.sql("select * from tarefa where user_id=:id").param("id", task.getUser().getId()).query(User.class);
+
 Task task2 = taskRepository.findByTitle(task.getTitle());
 taskRepository.deleteById(task2.getId());
- return task2;   
+ return null;   
 }
 
 public List<User> getAllUsers() {

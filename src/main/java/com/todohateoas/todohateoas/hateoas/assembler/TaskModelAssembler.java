@@ -16,8 +16,7 @@ public class TaskModelAssembler implements RepresentationModelAssembler<Task, Ta
     private final ModelMapper mapper;
     @NonNull
     @Override
-    public TaskModel toModel(@NonNull Task entity) {
-        var taskModel = mapper.map(entity, TaskModel.class);
+     public TaskModel toModel(@NonNull Task entity) {
 
         throw new UnsupportedOperationException("Unimplemented method 'toModel'");
     }

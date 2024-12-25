@@ -13,6 +13,7 @@ import java.security.Principal;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ClassUtils;
+import org.springframework.util.CollectionUtils;
 
 import com.todohateoas.todohateoas.controller.UserController;
 import com.todohateoas.todohateoas.dto.TaskDto;
@@ -32,7 +33,7 @@ public class UserModelAssembler implements RepresentationModelAssembler<User, Us
          Method method2 = ClassUtils.getMethod(UserController.class, "delete", TaskDto.class) ;
         model.add(linkTo(method).withRel("create").withType(HttpMethod.POST.name()));
        model.add(linkTo(method2).withRel("delete").withType(HttpMethod.DELETE.name()));
-
+        
         return  model;   
   
 
