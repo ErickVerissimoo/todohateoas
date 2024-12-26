@@ -26,7 +26,7 @@ public class AuthController {
     private final UserModelAssembler assembler;
 @PostMapping("/cadastro")
 public UserModel signup(@RequestBody UserDto entity) throws NoSuchMethodException, SecurityException {
-return    assembler.toModel(service.cadastro(mapper.map(entity, User.class)));
+return    assembler.toModel(service.addOne(mapper.map(entity, User.class)));
 
 
 }

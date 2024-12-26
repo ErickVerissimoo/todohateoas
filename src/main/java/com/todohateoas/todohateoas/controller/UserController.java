@@ -21,6 +21,9 @@ import com.todohateoas.todohateoas.service.UserService;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 
 @RequiredArgsConstructor
@@ -38,16 +41,11 @@ public UserModel add(@NotNull  Principal principal, @RequestBody TaskDto dto){
 var user =     service.addTask(principal.getName(), mapper.map(dto, Task.class));
 return assembler.toModel(user);
 }
-@DeleteMapping
-public UserModel deleteTask(@RequestBody TaskDto dto){
-    var task = service.delete(mapper.map(dto, Task.class));
-    return null;
-}
 
-@GetMapping("/users")
-public ResponseEntity<List<User>> users() {
-    return ResponseEntity.ok(service.getAllUsers());
-}
-
+// @PutMapping("/{id}")
+// public UserModel atualizar(@PathVariable String id, @RequestBody TaskDto entity, Principal principal) {
+    
+//     return entity;
+// }
 
 }
