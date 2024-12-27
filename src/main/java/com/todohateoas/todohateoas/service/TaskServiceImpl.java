@@ -2,6 +2,7 @@ package com.todohateoas.todohateoas.service;
 
 import org.springframework.stereotype.Service;
 
+import com.todohateoas.todohateoas.exceptions.TaskNotFoundException;
 import com.todohateoas.todohateoas.model.Task;
 import com.todohateoas.todohateoas.model.User;
 import com.todohateoas.todohateoas.repository.TaskRepository;
@@ -24,21 +25,20 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public Task updateTask(Task task, String userEmail) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateTask'");
+    public void updateTask(Task task) {
+        repository.saveAndFlush(task);
     }
 
     @Override
     public void deleteTask(Integer id, String userEmail) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteTask'");
+        repository.deleteById(id);
     }
 
     @Override
-    public Task findOne(Integer id, String userEmail) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findOne'");
+    public Task findOne(Integer id) {
+return repository.findById(id).orElseThrow(TaskNotFoundException::new);
+
+
     }
 
     

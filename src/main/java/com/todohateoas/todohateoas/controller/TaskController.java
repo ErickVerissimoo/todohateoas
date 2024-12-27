@@ -23,7 +23,7 @@ private final TaskService service;
 
 @GetMapping("/{id}")
 public TaskModel findTask(@PathVariable String id) {
-    return assembler.toModel(service.getById(id));
+    return assembler.toModel(service.findOne(Integer.parseInt(id)));
 }
 
 }

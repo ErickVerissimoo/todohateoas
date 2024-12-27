@@ -17,12 +17,13 @@ import com.todohateoas.todohateoas.hateoas.assembler.UserModelAssembler;
 import com.todohateoas.todohateoas.hateoas.model.UserModel;
 import com.todohateoas.todohateoas.model.Task;
 import com.todohateoas.todohateoas.model.User;
+import com.todohateoas.todohateoas.service.TaskServiceImpl;
 import com.todohateoas.todohateoas.service.UserService;
+import com.todohateoas.todohateoas.service.UserServiceImpl;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+
 
 
 
@@ -32,13 +33,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class UserController {
     
 
-    final private UserService service;
+    final private UserServiceImpl service;
     private final ModelMapper mapper;
     private final UserModelAssembler assembler;
+    private final TaskServiceImpl impl;
     @PostMapping
 public UserModel add(@NotNull  Principal principal, @RequestBody TaskDto dto){
 
-var user =     service.addTask(principal.getName(), mapper.map(dto, Task.class));
+var user =     impl.addTask( mapper.map(dto, Task.class), principal.getName());
 return assembler.toModel(user);
 }
 
