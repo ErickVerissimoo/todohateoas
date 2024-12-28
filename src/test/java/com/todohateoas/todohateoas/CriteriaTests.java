@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import com.todohateoas.todohateoas.model.Task;
 import com.todohateoas.todohateoas.model.User;
@@ -22,7 +23,6 @@ import jakarta.persistence.criteria.Root;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class CriteriaTests {
    @PersistenceContext private  EntityManager manager;
-
 @Test
 void teste(){
     CriteriaBuilder cb = manager.getCriteriaBuilder();
@@ -32,6 +32,7 @@ void teste(){
     cq.select(userJoin).where(cb.equal(task.get("id"), 14));
     TypedQuery<User> typedQuery = manager.createQuery(cq);
     var e = typedQuery.getSingleResult();
+    
     System.out.println(e.getEmail());
 }
 @Test

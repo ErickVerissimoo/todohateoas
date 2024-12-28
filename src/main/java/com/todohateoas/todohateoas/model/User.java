@@ -14,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,5 +37,10 @@ private String password;
     @JsonInclude(JsonInclude.Include.NON_NULL)
 @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,cascade = {CascadeType.ALL}, orphanRemoval = true)
 private List<Task> tasks;
+
+@PrePersist
+public void antes(){
+    System.out.println("A entidade de email: " + this.getEmail() + " está prestes a ser salva");
+}
 
 }

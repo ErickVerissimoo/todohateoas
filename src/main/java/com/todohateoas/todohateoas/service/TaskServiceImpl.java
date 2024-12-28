@@ -30,8 +30,10 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public void deleteTask(Integer id, String userEmail) {
+    public Task deleteTask(Integer id) {
+        var user = repository.findById(id).orElseThrow(TaskNotFoundException::new);
         repository.deleteById(id);
+        return user;
     }
 
     @Override

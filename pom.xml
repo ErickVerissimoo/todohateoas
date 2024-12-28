@@ -62,11 +62,10 @@
             <version>3.0.0</version>
         </dependency>
 
-        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+			                <version>1.18.30</version> 
         </dependency>
 
         <!-- Dependências para Testes -->
@@ -84,8 +83,22 @@
 
     <build>
         <plugins>
+
+		<plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.3.0</version>
+			 <configuration>
+                <archive>
+                    <manifest>
+                        <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                    </manifest>
+                </archive>
+            </configuration>
+		</plugin>
             <!-- Configuração do Maven Compiler -->
             <plugin>
+			
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
@@ -96,12 +109,12 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
+							                <version>1.18.30</version> 
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
 
-            <!-- Plugin do Spring Boot para gerar o JAR executável -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

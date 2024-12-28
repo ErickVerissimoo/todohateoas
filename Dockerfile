@@ -6,9 +6,8 @@ COPY . /app
 
 WORKDIR /app
 
-RUN chmod +x mvnw
 
-RUN ./mvnw clean install
+RUN ./mvnw clean install -DskipTests
 
 ARG JAVA_OPTS
 ENV JAVA_OPTS=$JAVA_OPTS

@@ -1,13 +1,10 @@
 package com.todohateoas.todohateoas.service;
 
 import org.springframework.data.domain.Example;
-import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
 
-import com.todohateoas.todohateoas.dto.TaskDto;
-import com.todohateoas.todohateoas.exceptions.TaskExistsException;
-import com.todohateoas.todohateoas.model.Task;
 import com.todohateoas.todohateoas.model.User;
 import com.todohateoas.todohateoas.repository.TaskRepository;
 import com.todohateoas.todohateoas.repository.UserRepository;
@@ -28,7 +25,6 @@ private final TaskRepository taskRepository;
 @Override
 public User findOne(Integer id) {
 return repository.findById(id).orElseThrow(EntityNotFoundException::new);    
-
 }
 @Override
 public void deleteOne(Integer id) {
