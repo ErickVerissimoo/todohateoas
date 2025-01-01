@@ -1,15 +1,12 @@
 package com.todohateoas.todohateoas.hateoas.assembler;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.http.HttpMethod;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.List;
 
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;

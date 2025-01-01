@@ -1,12 +1,7 @@
 package com.todohateoas.todohateoas.controller;
 
 import java.security.Principal;
-import java.util.List;
-
 import org.modelmapper.ModelMapper;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,9 +11,7 @@ import com.todohateoas.todohateoas.dto.TaskDto;
 import com.todohateoas.todohateoas.hateoas.assembler.UserModelAssembler;
 import com.todohateoas.todohateoas.hateoas.model.UserModel;
 import com.todohateoas.todohateoas.model.Task;
-import com.todohateoas.todohateoas.model.User;
 import com.todohateoas.todohateoas.service.TaskServiceImpl;
-import com.todohateoas.todohateoas.service.UserService;
 import com.todohateoas.todohateoas.service.UserServiceImpl;
 
 import jakarta.validation.constraints.NotNull;

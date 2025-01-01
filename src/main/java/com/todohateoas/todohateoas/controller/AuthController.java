@@ -1,7 +1,16 @@
 package com.todohateoas.todohateoas.controller;
 
+import java.time.Duration;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.async.DeferredResult;
+
 import com.todohateoas.todohateoas.dto.UserDto;
 import com.todohateoas.todohateoas.hateoas.assembler.UserModelAssembler;
 import com.todohateoas.todohateoas.hateoas.model.UserModel;
@@ -9,11 +18,6 @@ import com.todohateoas.todohateoas.model.User;
 import com.todohateoas.todohateoas.service.UserService;
 
 import lombok.RequiredArgsConstructor;
-
-import org.modelmapper.ModelMapper;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
@@ -24,11 +28,17 @@ public class AuthController {
     private final ModelMapper mapper;
     private final UserService service;
     private final UserModelAssembler assembler;
+    private final ThreadPoolTaskExecutor executor;
 @PostMapping("/cadastro")
-public UserModel signup(@RequestBody UserDto entity) throws NoSuchMethodException, SecurityException {
-return    assembler.toModel(service.addOne(mapper.map(entity, User.class)));
+public DeferredResult<UserModel> signup(@RequestBody UserDto entity) throws NoSuchMethodException, SecurityException {
+    DeferredResult<UserModel> deferred = new DeferredResult<>(Duration.ofSeconds(2).toSeconds());
+executor.submit(() -> {
+    var o = assembler.toModel(service.addOne(mapper.map(entity, User.class)));
+    deferred.setResult(o);
+    deferred.onCompletion(() -> System.out.println("User cadastrado"));
 
-
+});
+return deferred;
 }
 
 }

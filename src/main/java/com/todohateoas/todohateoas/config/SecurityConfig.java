@@ -1,6 +1,7 @@
 package com.todohateoas.todohateoas.config;
 
 import static org.springframework.security.config.Customizer.withDefaults;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
 import com.todohateoas.todohateoas.service.CustomUserDetailsService;
 
 import lombok.RequiredArgsConstructor;
@@ -24,7 +26,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> 
                 authorize
-                    .requestMatchers("/public/**").permitAll()
+                    .requestMatchers("/public/cadastro").permitAll()
                     .anyRequest().authenticated()
         )
         .httpBasic(withDefaults()).csrf(c -> c.disable());

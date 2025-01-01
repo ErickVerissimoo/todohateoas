@@ -1,9 +1,11 @@
 package com.todohateoas.todohateoas.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestClient;
 
 import com.todohateoas.todohateoas.model.User;
 import com.todohateoas.todohateoas.repository.TaskRepository;
@@ -28,9 +30,13 @@ return repository.findById(id).orElseThrow(EntityNotFoundException::new);
 }
 @Override
 public void deleteOne(Integer id) {
-repository.deleteById(id);    
+repository.deleteById(id);    }
 
+public List<User> getAll(){
+    Sort sort= Sort.by("nome").ascending();
+    return repository.findAll(sort);
 }
+
 @Override
 public User updateOne(User user) {
 Example<User> example = Example.of(user);
