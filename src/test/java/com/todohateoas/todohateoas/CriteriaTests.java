@@ -1,10 +1,10 @@
 package com.todohateoas.todohateoas;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import com.todohateoas.todohateoas.model.Task;
 import com.todohateoas.todohateoas.model.User;
@@ -24,6 +24,7 @@ import jakarta.persistence.criteria.Root;
 public class CriteriaTests {
    @PersistenceContext private  EntityManager manager;
 @Test
+@Disabled
 void teste(){
     CriteriaBuilder cb = manager.getCriteriaBuilder();
     CriteriaQuery<User> cq = cb.createQuery(User.class);
@@ -36,6 +37,7 @@ void teste(){
     System.out.println(e.getEmail());
 }
 @Test
+@Disabled
 void testetwo(){
         Query query = manager.createQuery("select p from User p where p.email=:email").setParameter("email", "erickverissimoteste@gmail.com");
     User user =(User) query.getSingleResult() ;

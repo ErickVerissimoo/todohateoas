@@ -46,6 +46,12 @@ return e;
 
 
 }
+
+public User findByEmail(String email){
+return repository.findByEmail(email);
+}
+
+
 @Override
 public User addOne(User user) {
     if(repository.existsByEmail(user.getEmail())){

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
-
 import com.todohateoas.todohateoas.dto.UserDto;
 import com.todohateoas.todohateoas.hateoas.assembler.UserModelAssembler;
 import com.todohateoas.todohateoas.hateoas.model.UserModel;
@@ -31,14 +30,14 @@ public class AuthController {
     private final ThreadPoolTaskExecutor executor;
 @PostMapping("/cadastro")
 public DeferredResult<UserModel> signup(@RequestBody UserDto entity) throws NoSuchMethodException, SecurityException {
-    DeferredResult<UserModel> deferred = new DeferredResult<>(Duration.ofSeconds(2).toSeconds());
-executor.submit(() -> {
-    var o = assembler.toModel(service.addOne(mapper.map(entity, User.class)));
-    deferred.setResult(o);
-    deferred.onCompletion(() -> System.out.println("User cadastrado"));
-
+ DeferredResult<UserModel> model = new DeferredResult<>(Duration.ofSeconds(4).toSeconds());
+executor.submit(()-> { model.setResult(assembler.toModel(mapper.map(entity, User.class)));
+model.onCompletion(() -> System.out.println("User adicionado"));
 });
-return deferred;
+return model;
+
+
+
 }
 
 }

@@ -1,6 +1,5 @@
 package com.todohateoas.todohateoas.repository;
 
-import org.hibernate.validator.internal.engine.validationcontext.ExecutableValidationContext;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.todohateoas.todohateoas.model.Task;

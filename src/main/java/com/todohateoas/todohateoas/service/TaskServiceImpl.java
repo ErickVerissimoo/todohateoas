@@ -25,8 +25,9 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public void updateTask(Task task) {
+    public Task updateTask(Task task) {
         repository.saveAndFlush(task);
+        return repository.getReferenceById(task.getId());
     }
 
     @Override

@@ -24,7 +24,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tarefa", uniqueConstraints = @UniqueConstraint(columnNames = "description"))
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
